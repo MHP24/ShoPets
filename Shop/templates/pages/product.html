@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Producto {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/product-view.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="preview">
+        <div class="preview__container">
+            <div class="preview__product">
+                <div class="img__container">
+                    <img src="{{ product.urlImagenProducto}}" style="height: 400px; width: 400px" alt="" class="product__img">
+                </div>
+
+                <div class="product__content">
+                    <div class="product__data">
+                        <h2 class="product__name">{{product.nomProducto}}</h2>
+                        {% if product.stock > 0 %}
+                            <p class="product__stock">Producto Disponible</p>
+                        {% else %}
+                            <p class="product__stock--empty">Producto Agotado</p>
+                        {% endif %}
+                        <p class="product__code">SKU: {{product.idProducto}}</p>
+                        <p class="product__pet">{{product.categoria}}</p>
+                    </div>
+
+                    <div class="product__values">
+                        {% if product.porDesctoOferta > 0 %}
+                            <div class="product__price">
+                                <p class="product__platform" style="text-decoration:line-through;">Internet</p>
+                                <p class="product__value" style="text-decoration:line-through;">${{product.precio}}</p>
+                            </div>
+                            <div class="product__price">
+                                <p class="product__platform" style="color: #FF0000;">Oferta</p>
+                                <p class="product__value" style="color: #FF0000;">${{precioDescto}}</p>
+                            </div>
+                        {% else %}
+                            <div class="product__price">
+                                <p class="product__platform">Internet</p>
+                                <p class="product__value">${{product.precio}}</p>
+                            </div>
+                        {% endif %}
+
+                        <div class="product__price">
+                            <p class="product__platform product__platform--member">Miembro</p>
+                            <p class="product__value product__value--member">${{precioSubscriptor}}</p>
+                        </div>
+                    </div>
+
+                    {% if product.stock > 0 %}
+                        <div class="product__buy">
+                            <a class="product__buy__btn" 
+                            style="text-decoration: none; text-align: 
+                                    center; display: grid; place-items: center;
+                                    font-size: 1rem;"
+                            href="{% url 'agregar_carro' product.idProducto %}">Agregar al carro</a>
+                        </div>
+                    {% else %}
+                        <div class="product__buy">
+                            <button class="product__buy__btn product__buy__btn--empty" 
+                            style="text-decoration: none; text-align: 
+                                    center; display: grid; place-items: center;
+                                    font-size: 1rem;">Agotado</button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "baseAdmin.html" %}
+{% load static %}
+{% block title %} Usuarios {% endblock %}
+
+{% block styles %} 
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-input-handler.css' %}">
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-table-layout.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="summary">
+        <div class="summary__item summary__item--t">
+            <h2 class="summary__title">Usuarios</h2>
+            {% comment %} <button class="summary__btn"> <img class="summary__btn--img" src="{% static '/core/imgs/icons/download.svg' %}"> Generar Reporte</button> {% endcomment %}
+        </div>
+    </div>
+
+    <div class="searcher__item searcher__item--search searcher__item--search-mobile">
+        <input class="searcher__input" name="search" id="search" type="text" placeholder="Buscar...">
+        <button class="searcher__btn"><img class="searcher__btn-img"src="{% static '/core/imgs/icons/search.svg' %}" alt="Search"></button>
+    </div>
+
+    <section class="history__container">
+        <table class="table users">
+            <thead>
+                <tr>
+                    <th>ID Usuario</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Miembro</th>
+                    <th>Tipo Usuario</th>
+                    <th class="table__action"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for us in list %}
+                    <tr class="tr">
+                        <th>{{us.id}}</th>
+                        <th>{{us.user.first_name}}</th>
+                        <th>{{us.user.email}}</th>
+                        <th>{{us.esSubscriptor}}</th>
+                        {% if us.user.is_staff%}
+                            <th>Administrador</th>
+                        {% endif %}
+                        {% if not us.user.is_staff%}
+                            <th>Cliente</th>
+                        {% endif %}
+                        <th class="table__action"> 
+                            <a href="{% url 'editar_usuario' us.user.id %}"> <img class= "table__action__img" src="{% static '/core/imgs/icons/edit.svg' %}" alt="edit"></a>
+                            <a href="{% url 'eliminar_usuario' us.user.id %}"> <img class= "table__action__img" src="{% static '/core/imgs/icons/delete.svg' %}" alt="delete"></a>
+                        </th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table> 
+
+        <div class="table--umobile">
+            <div class="recents--mobile">
+                {% for us in list %}
+                    <a href="" class="mobile__row">
+                        <div class="col__one">
+                            <div class="col__userid col ">
+                                <p class="col__title">ID Usuario</p>
+                                <p class="col__content">{{us.id}}</p>
+                            </div>
+
+                            <div class="col__username col ">
+                                <p class="col__title">Nombre</p>
+                                <p class="col__content">{{us.user.first_name}}</p>
+                            </div>
+
+                            <div class="col__product col ">
+                                <p class="col__title">Email</p>
+                                <p class="col__content">{{us.user.email}}</p>
+                            </div>
+                        </div>
+
+                        <div class="col__two">
+                            <div class="col__price col ">
+                                <p class="col__title">Miembro</p>
+                                <p class="col__content">{{us.esSubscriptor}}</p>
+                            </div>
+
+                            <div class="col__price col ">
+                                <p class="col__title">Tipo Usuario</p>
+                                {% if us.user.is_staff%}
+                                    <p class="col__content">Administrador</p>
+                                {% endif %}
+                                {% if not us.user.is_staff%}
+                                    <p class="col__content">Cliente</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

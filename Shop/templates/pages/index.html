@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} ShoPets {% endblock %}
+
+{% block styles%}
+    <link rel="stylesheet" href="{% static '/core/css/slider.css' %}"
+{% endblock %}
+
+{% block content %}
+    <section class="slider">
+        <div class="slider__item slider--active">
+            <img src="{% static '/core/imgs/offers/1.jpg' %}" alt="" class="slider__img">
+            <div class="slider__info slider__info--promotional">
+                <h2 class="slider__title">¡Compra y Gana!</h2>
+                <p class="slider__content">¡Al hacer compras sobre $25.000 en accesorios para mascotas
+                    puedes recibir ropa exclusiva!
+                </p>
+            </div>
+            <a class="promo-btn offer__btn" href="{% url 'oferton' %}">Gana Ropa</a>
+        </div>
+
+        <div class="slider__item">
+            <img src="{% static '/core/imgs/offers/2.jpg' %}" alt="" class="slider__img">
+            <div class="slider__info">
+                <h2 class="slider__title">¿Cuál comida es la adecuada para tu mascota?</h2>
+                <p class="slider__content">La pregunta de toda la vida tiene por fin su respuesta!
+                    Explora nuestro catálogo de alimentos para tu mascota y sorprendete con sus beneficios y deliciosas ofertas!
+                </p>
+            </div>
+        </div>
+
+        <div class="slider__item">
+            <img src="{% static '/core/imgs/offers/3.jpg' %}" alt="" class="slider__img">
+            <div class="slider__info">
+                <h2 class="slider__title">¡Quién como tú!</h2>
+                <p class="slider__content">¿Quién no querría poder relajarse como su gato?
+                    Explora nuestro catálogo y encuentra más camas que provoquen la envidia de los humanos!
+                </p>
+            </div>
+        </div>
+
+        <div class="slider__item">
+            <img src="{% static '/core/imgs/offers/4.jpg' %}" alt="" class="slider__img">
+            <div class="slider__info">
+                <h2 class="slider__title">No te pierdas...</h2>
+                <p class="slider__content">Creénos, querrás ser miembro... suscríbete, las ofertas que podemos ofrecerte no las encontrarás en ningún otro lugar.</p>
+            </div>
+        </div>
+
+        <div class="slider__item">
+            <img src="{% static '/core/imgs/offers/5.jpg' %}" alt="" class="slider__img">
+            <div class="slider__info">
+                <h2 class="slider__title">¡Me encanta el mar!</h2>
+                <p class="slider__content">¡Así es! me encanta el mar, igual que a ti e igual que a nuestros peces mascotas... entonces...
+                    ¿Qué esperas para revisar nuestro catalogo? No podemos ofrecerte el mar entero, pero si una pequeña parte.
+                </p>
+            </div>
+        </div>
+
+        <div class="slider__buttons">
+            <div class="slider__btn slider--active"></div>
+            <div class="slider__btn"></div>
+            <div class="slider__btn"></div>
+            <div class="slider__btn"></div>
+            <div class="slider__btn"></div>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2 class="features__title">¿Qu&eacute; Buscas?</h2>
+        <div class="features__container">
+            <a href="{% url 'catalogo' %}" style="background-image: url({% static '/core/imgs/features/1.jpg' %});" class="features__item features__item--wide"></a>
+            <a href="{% url 'catalogo' %}" style="background-image: url({% static '/core/imgs/features/2.jpg' %});" class="features__item"></a>
+            <a href="{% url 'catalogo' %}" style="background-image: url({% static '/core/imgs/features/3.jpg' %});" class="features__item features__item--tall"></a>
+            <a href="{% url 'catalogo' %}" style="background-image: url({% static '/core/imgs/features/4.jpg' %});" class="features__item features__item--wide"></a>
+            <a href="{% url 'catalogo' %}" style="background-image: url({% static '/core/imgs/features/5.jpg' %});" class="features__item"></a>
+            <a href="{% url 'catalogo' %}" style="background-image: url({% static '/core/imgs/features/6.webp' %});" class="features__item "></a>
+            <a href="{% url 'catalogo' %}" style="background-image: url({% static '/core/imgs/features/7.jpg' %});" class="features__item"></a>
+        </div>
+    </section>
+
+    <section class="most-selled">
+        <h2 class="most-selled__title">Más Vendidos</h2>
+        <div class="most-selled__container">
+            <button aria-label="Anterior" class="most-selled__btn most-selled__btn--back">
+                <
+            </button>
+            
+            <div class="most-selled__products">
+                {% for producto in list %}
+                    <div class="most-selled__product">
+                        <img class="most-selled__product__image" src="{{ producto.urlImagenProducto }}" alt="{{ producto.nomProducto }}">
+                        <a class="most-selled__product__btn" href="{% url 'producto' producto.idProducto %}">Ver</a>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button aria-label="Siguiente" class="most-selled__btn most-selled__btn--next">
+                >
+            </button>
+        </div>
+
+        <div class="most-selled__dots"></div>
+    </section>
+
+    <section class="offer">
+        <div class="offer__container">
+            <div class="offer__item">
+                <div class="offer__graph">
+                    <img src="{% static '/core/imgs/offers/month-offer.png' %}" alt="offer-img" class="offer__img">
+                </div>
+            </div>
+
+            <div class="offer__item">
+                <div class="offer__content">
+                    <h3 class="offer__title">¡5% Dcto. para subscriptores!</h3>
+                    <p class="offer__code">¡Suscribete!</p>
+                    <a class="offer__btn" href="{% url 'perfil' %}">Ver</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="members">
+        <h2 class="members__title">¿A&uacute;n no eres Miembro?</h2>
+        <div class="members__container">
+
+            <div class="members__item">
+                <div class="members__bens">
+                    <h2 class="members__subtitle">¡Mira estos beneficios!</h2>
+                    <br>
+                    <p class="members__benef"><span>A</span> ¡Al suscribirte conseguirás un descuento especial de un 5% en todos los articulos de la tienda!
+                    </p>
+                    <br>
+                    <p class="members__benef"><span>B</span> ¡Recibe noticias e información sobre la tienda, sus productos y ofertas que te podamos ofrecer!</p>
+                    <br>
+                    <p class="members__benef"><span>C</span> ¡Gana prioridad entre los pedidos de despacho, olvidate de las prolongadas esperas y los costos adicionales!</p>
+                </div>
+            </div>
+
+            <div class="members__item">
+                <img class="members__img" src="{% static '/core/imgs/msc/members-benefs.svg' %}" alt="members-img">
+            </div>
+
+            <a href="{% url 'perfil' %}" class="members__item members__btn">¡Quiero Unirme!</a>
+        </div>
+    </section>
+
+    <section class="partners">
+        <h2 class="partners__title">Marcas Destacadas</h2>
+        <div class="partners__list">
+            <div class="partners__container">
+                <div class="partners__item">
+                    <img class="partners__img" src="{% static '/core/imgs/partners/champion-dog-logo.png' %}" alt="champion-dog-logo">
+                </div>
+
+                <div class="partners__item">
+                    <img class="partners__img" src="{% static '/core/imgs/partners/whiskas-logo.png' %}" alt="whiskas-logo">
+                </div>
+
+                <div class="partners__item">
+                    <img class="partners__img" src="{% static '/core/imgs/partners/dog-chow-logo.webp' %}" alt="dog-chow-logo">
+                </div>
+
+                <div class="partners__item">
+                    <img class="partners__img" src="{% static '/core/imgs/partners/master-dog-logo.png' %}" alt="master-dog-logo">
+                </div>
+
+                <div class="partners__item">
+                    <img class="partners__img" src="{% static '/core/imgs/partners/purina-cat-logo.png' %}" alt="purina-cat-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="policy">
+        <h2 class="policy__title">Nuestra Pol&iacute;tica</h2>
+        <div class="policy__container">
+            <div class="policy__item">
+                <img class="policy__img" src="{% static '/core/imgs/icons/location.svg' %}" alt="location">
+                <p class="policy__paragraph">De donde somos</p>
+            </div>
+
+            <div class="policy__item">
+                <img class="policy__img" src="{% static '/core/imgs/icons/package.svg' %}" alt="package">
+                <p class="policy__paragraph">Info. de despacho</p>
+            </div>
+
+            <div class="policy__item">
+                <img class="policy__img" src="{% static '/core/imgs/icons/satisfaction.svg' %}" alt="satisfaction">
+                <p class="policy__paragraph">Danos tu opinión</p>
+            </div>
+
+            <div class="policy__item">
+                <img class="policy__img" src="{% static '/core/imgs/icons/support.svg' %}" alt="support">
+                <p class="policy__paragraph">Comuniquémonos</p>
+            </div>
+
+            <div class="policy__item">
+                <img class="policy__img" src="{% static '/core/imgs/icons/timer.svg' %}" alt="timer">
+                <p class="policy__paragraph">Horarios de atención</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

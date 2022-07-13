@@ -1,0 +1,42 @@
+{% extends "baseAdmin.html" %}
+{% load static %}
+{% block title %} Gestionar Productos {% endblock %}
+
+{% block styles %} 
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-products.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="summary">
+        <div class="summary__item summary__item--t">
+            <h2 class="summary__title">Productos</h2>
+            <a class="summary__btn" href="{% url 'agregar_productos' %}"> <img class="summary__btn--img" src="{% static '/core/imgs/icons/add.svg' %}">Agregar Productos</a>
+        </div>
+    </div>
+
+    <div class="searcher__item searcher__item--search searcher__item--search-mobile">
+        <input class="searcher__input" name="search" id="search" type="text" placeholder="Buscar...">
+        <button class="searcher__btn"><img class="searcher__btn-img"src="{% static '/core/imgs/icons/search.svg' %}" alt="Search"></button>
+    </div>
+
+    <section class="products">
+        <ul class="products__container">
+            {%if list %}
+                {% for producto in list%}
+                    <li class="product">
+                        <a class="product__link" href="{% url 'editar_productos' producto.idProducto  %}">
+                            <div class="product__pic">
+                                <img class="product__img" src="{{ producto.urlImagenProducto }}" alt="product">
+                            </div>
+                            <div class="product__info">
+                                <p class="product__name">{{ producto.nomProducto }}</p>
+                                <p class="product__description" style="height: 30px; overflow: hidden;">{{ producto.descripcion }}</p>
+                                <a class="sell__link" href="{% url 'editar_productos' producto.idProducto  %}">Editar</a>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "baseAdmin.html" %}
+{% load static %}
+{% block title %} Gestionar Stock {% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-products.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="summary">
+        <div class="summary__item summary__item--t">
+            <h2 class="summary__title">Stock Actual</h2>
+        </div>
+    </div>
+
+    <div class="searcher__item searcher__item--search searcher__item--search-mobile">
+        <input class="searcher__input" name="search" id="search" type="text" placeholder="Buscar...">
+        <button class="searcher__btn"><img class="searcher__btn-img"src="{% static '/core/imgs/icons/search.svg' %}" alt="Search"></button>
+    </div>
+
+    <section class="products">
+        <ul class="products__container">
+            {% for producto in productos %}
+                <li class="product">
+                    <a class="product__link" href="{% url 'editar_stock' producto.idProducto %}">
+                        <div class="product__pic" style="width: 100px; justify-self: left;">
+                            <img class="product__img" src="{{ producto.urlImagenProducto }}" alt="product">
+                        </div>
+                        <div class="product__info" style="width: 100%;">
+                            <p class="product__name">{{ producto.nomProducto }}</p>
+                            <p class="product__count">Stock Actual: <br/>
+                                {% if producto.stock > 0%}
+                                    <span class="product__count--number">{{ producto.stock }} Unidad(es)</span>
+                                {% else %}
+                                    <span class="product__count--number" style="color: #F53D3D;">Agotado</span>
+                                {% endif %}
+                            </p>
+                            <a class="sell__link" href="{% url 'editar_stock' producto.idProducto %}">Editar</a>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

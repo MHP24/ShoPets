@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Cat&aacute;logo {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/shopping-cart.css' %}">
+    <link rel="stylesheet" href="{% static '/core/css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="products">
+        <div class="products__searcher">
+            <h2 class="categories__title">Categorias</h2>
+            <ul class="categories">
+                <li class="categorie categorie--gray">
+                    <a class="categorie__content" href="{% url 'catalogo' 'Perros' %}"><img src="{% static '/core/imgs/icons/dog-icon.svg' %}" alt=""
+                            class="categorie__img">Perros</a>
+                </li>
+                <li class="categorie">
+                    <a class="categorie__content" href="{% url 'catalogo' 'Gatos' %}"><img src="{% static '/core/imgs/icons/cat-icon.svg' %}" alt=""
+                            class="categorie__img">Gatos</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="products__navigation">
+            <div class="products__filter">
+                <form class="searcher" method="post" action="buscar_producto">
+                    {% csrf_token %}
+                    <input type="text" name="search" id="search" class="product__search" placeholder="¿Qué Buscas?">
+                    <button type="submit" class="search__btn"><img src="{% static '/core/imgs/icons/search.svg' %}" alt="search"
+                            class="search__icon"></button>
+                </form>
+            </div>
+            <ul class="products__list" id="products">
+                {% for product in list %}
+                    <li class="product">
+                        <a class="product__link" href="{%url 'producto' product.idProducto%}">
+                            <div class="product__img">
+                                <img src="{{product.urlImagenProducto}}" alt="" class="img__src">
+                            </div>
+                            <div class="product__description">
+                                <p class="description__company">{{product.nomProducto}}</p>
+                                <p class="description__name" style="height: 30px; overflow: hidden;">{{product.descripcion}}</p>
+                                <p class="description__price">${{product.precio}}</p>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+{% endblock %}

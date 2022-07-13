@@ -1,0 +1,116 @@
+{% extends "baseAdmin.html" %}
+{% load static %}
+{% block title %} Historial de ventas {% endblock %}
+
+{% block styles %} 
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-input-handler.css' %}">
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-table-layout.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="summary">
+        <div class="summary__item summary__item--t">
+            <h2 class="summary__title">Historial De Ventas</h2>
+        </div>
+    </div>
+
+    <div class="searcher__item searcher__item--search searcher__item--search-mobile">
+        <input class="searcher__input" name="search" id="search" type="text" placeholder="Buscar...">
+        <button class="searcher__btn"><img class="searcher__btn-img"src="{% static '/core/imgs/icons/search.svg' %}" alt="Search"></button>
+    </div>
+
+    <section class="history__container">
+        <table class="table recents">
+            <thead>
+                <tr>
+                    <th>Nro Factura</th>
+                    <th>Fecha</th>
+                    <th>Nombre Cliente</th>
+                    <th>Monto Total</th>
+                    <th>Estado Actual</th>
+                    <th>Detalle</th>
+                    <th>Cambiar Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for factura in facturas %}
+                    <tr class="tr">
+                        <th>{{ factura.nroFactura }}</th>
+                        <th>{{ factura.fecha }}</th>
+                        <th>{{ factura.idUsuario.user.first_name }} {{ factura.idUsuario.user.last_name }}</th>
+                        <th>${{ factura.montoTotal }}</th>
+                        <th>{{ factura.estadoActual }}</th>
+                        <th class="table__action"> <a href="{% url 'factura' factura.nroFactura %}" class="table__action__link"><img class= "table__action__img" src="{% static '/core/imgs/icons/view.svg' %}"></a></th>
+                        <th class="table__radial">
+                            <div class="form__input" style="flex-direction: row; justify-content: center;">
+                                <div class="form__input--radial">
+                                    <a href="{% url 'despachar' factura.nroFactura %}" class="input__label--radio"><img class="table__action__img" src="{% static '/core/imgs/icons/truck.svg' %}"></a>
+                                </div>
+                                <div class="form__input--radial">
+                                    <a  href="{% url 'entregar' factura.nroFactura %}" class="input__label--radio"><img class="table__action__img" src="{% static '/core/imgs/icons/happy-delivery.svg' %}"></a>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table> 
+
+        <div class="table--mobile">
+            <div class="recents--mobile">
+                {% for factura in facturas %}
+                    <div class="mobile__row">
+                        <div class="col__one">
+                            <div class="col__sold-id col ">
+                                <p class="col__title">Nro Factura</p>
+                                <p class="col__content">{{ factura.nroFactura }}</p>
+                            </div>
+
+                            <div class="col__date col ">
+                                <p class="col__title">Fecha</p>
+                                <p class="col__content">{{ factura.fecha }}</p>
+                            </div>
+
+                            <div class="col__client col ">
+                                <p class="col__title">Cliente</p>
+                                <p class="col__content">{{ factura.idUsuario.first_name }}</p>
+                            </div>
+                        </div>
+
+                        <div class="col__two">
+                            <div class="col__price col ">
+                                <p class="col__title">Monto Total</p>
+                                <p class="col__content">${{ factura.montoTotal }}</p>
+                            </div>
+
+                            <div class="col__status col ">
+                                <p class="col__title">Estado Actual</p>
+                                <p class="col__content">{{ factura.estadoActual }}</p>
+                            </div>
+
+                            <div class="col__details col ">
+                                <p class="col__title">Detalle</p>
+                                <p class="col__content"><a href="{% url 'factura' factura.nroFactura %}" class="col__content__link"><img class= "table__action__img" src="{% static '/core/imgs/icons/view.svg' %}"></a></p>
+                            </div>
+
+                            <div class="col__status col ">
+                                <p class="col__title">Cambiar Estado</p>
+                                <div class="col__content">
+                                    <div class="form__input" style="flex-direction: row; justify-content: center;">
+                                        <div class="form__input--radial">
+                                            <a href="{% url 'despachar' factura.nroFactura %}" class="input__label--radio"><img class="table__action__img" src="{% static '/core/imgs/icons/truck.svg' %}"></a>
+                                        </div>
+                                        <div class="form__input--radial">
+                                            <a href="{% url 'entregar' factura.nroFactura %}" class="input__label--radio"><img class="table__action__img" src="{% static '/core/imgs/icons/happy-delivery.svg' %}"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

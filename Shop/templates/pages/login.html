@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Iniciar Sesi&oacute;n {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/users-accounts.css' %}">
+{% endblock %}
+    	
+{% block content %}
+    <section class="account">
+        <img src="{% static '/core/imgs/msc/login-picture.jpg' %}" class="img__account" alt="">
+        <div class="form">
+            <h3 class="form__title">¡Bienvenido!, Inicia Sesi&oacute;n</h3>
+            <form class="form__product" action="" method="post" id="login">
+                {% csrf_token %} 
+                <div class="form__input">
+                    <label class="input__label" for="username">Username</label>
+                    <input class="input__input" id="username" name = "username"
+                    type="text" placeholder="Nombre de usuario" autocomplete="off" required>
+                </div>
+
+                <div class="form__input">
+                    <label class="input__label" for="contrasena">Contrase&nacute;a</label>
+                    <input class="input__input" id="contrasena" name = "contrasena"
+                    type="password" placeholder="Contraseña" autocomplete="off" required>
+                </div>
+                <div class="form__btns">
+                    <button class="form__btn" type="submit">Iniciar Sesi&oacute;n</button>
+                </div>
+
+                <div class="form__social">
+                    <img src="{% static '/core/imgs/icons/facebook-logo.webp' %}" alt="" class="social__item">
+                    <img src="{% static '/core/imgs/icons/instagram-logo.png' %}" alt="" class="social__item">
+                    <img src="{% static '/core/imgs/icons/twiter.png' %}" alt="" class="social__item">
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

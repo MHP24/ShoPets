@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Registro {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/users-accounts.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="account account--register">
+        <div class="form">
+            <h3 class="form__title">Formulario De Registro</h3>
+                <form class="form__user" action="" method="post" id="register">
+                    <div class="form__inputs--register">
+                        <div class="input--group-a">
+                            {% csrf_token %} 
+                            {% for campo in form %}
+                                <div class="form__input">
+                                    <label class="input__label" for="input__input--rut">{{ campo.label }}</label>
+                                    <input class="input__input" id="{{ campo.name }}" name="{{ campo.name }}" type="{{ campo.field.widget.input_type }}"
+                                        placeholder="{{ campo.label }}" autocomplete="off" required>
+                                </div>
+                            {% endfor %}
+
+                            <div class="form__input">
+                                <label class="input__label" for="input__input--rut">Foto de perfil</label>
+                                <input class="input__input" id="userImg" name="userImg" type="text"
+                                    placeholder="URL Imágen" required>
+                            </div>
+
+                            <div class="form__input">
+                                <div class="input__checkbox">
+                                    <input type="checkbox" class="form-check-input" id="suscripcion"
+                                        name="suscripcion">
+                                    <label class="input__label" for="suscripcion">Con
+                                        subscripci&oacute;n</label>
+                                </div>
+                                <small id="input__help--member" class="input__small">
+                                    Deseo subscribirme con un aporte de $3.000 mensuales
+                                    y obtener un 5% de descuento en mis compras
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form__btns">
+                        <button class="form__btn" id="form__btn--register" type="submit">Registrarse</button>
+                    </div>
+                </form>
+        </div>
+    </section>
+{% endblock %}
+
+
+

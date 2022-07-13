@@ -1,0 +1,70 @@
+:root {
+    --color-c1: #F2F2F2;
+    --color-c2: #FAFAFA;
+    --color-c3: #FFFFFF;
+    --color-c4: #24252A;
+    --color-c4-hover: #2E2F36;
+    --color-c5: #00BFA6;
+    --color-c5-hover: #039E89;
+    --color-c6: #FF3696;
+    --color-c7: #F53D3D;
+    --color-c8: #53545C;
+    --color-c9: #000000;
+}
+
+.about {
+    margin: 7em auto 1em;
+    width: 100%;
+    text-align: center;
+}
+
+.about__container {
+    width: 90%;
+    margin: auto;
+    text-align: justify;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+}
+
+.about__title {
+    font-size: 2rem;
+    margin-bottom: 1em;
+    font-weight: 500;
+}
+
+.about__epigraph {
+    line-height: 2rem;
+}
+
+.about__description {
+    box-shadow: 1px 7px 15px -16px var(--color-c9);
+    border-radius: 5px;
+    border-left: 4px var(--color-c5) solid;
+    padding: 1em;
+    transition: .5s;
+}
+
+.about__description:hover {
+    transition: .5s;
+    transform: scale(1.02);
+}
+
+.about__img {
+    cursor: pointer;
+}
+
+@media (max-width: 1120px) {
+    .about__container {
+        flex-direction: column;
+    }
+
+    .about__epigraph  {
+        font-size: 1rem;
+    }
+}
+
+.policy {
+    background-color: var(--color-c2);
+}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Producto {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/promotional.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="clothes">
+        <h2 class="clothes__title">Ropa Promocional</h2>
+        <div id="clothes__container"></div>
+    </section>
+{% endblock %}

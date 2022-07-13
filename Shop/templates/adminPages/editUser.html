@@ -1,0 +1,80 @@
+{% extends "baseAdmin.html" %}
+{% load static %}
+{% block title %} Usuarios {% endblock %}
+
+{% block styles %} 
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-input-handler.css' %}">
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-table-layout.css' %}">
+{% endblock %}
+
+{% block content %}
+ <div class="summary">
+            <div class="summary__item summary__item--t">
+                    <h2 class="summary__title">Mantenedor de usuarios</h2>
+                </div>
+            </div>
+
+            <div class="form">
+                <form class="form__users" action="" method="POST" id="users-handler" style="display: flex; flex-direction: column;">
+                        {% csrf_token %} 
+                        {% for campo in formPerfil %}
+                            <div class="form__input">
+                                <label class="input__label" for="{{ campo.name }}">{{ campo.label }}</label>
+                                <input class="input__input" id="{{ campo.name }}" name="{{ campo.name }}" 
+                                type="{{ campo.field.widget.input_type }}" placeholder="{{ campo.label }}" 
+                                value="{{ campo.value | default:''}}">
+                            </div>
+                        {% endfor %}
+                        
+                        {% for campo in formUser %}
+                            <div class="form__input">
+                                <label class="input__label" for="{{ campo.name }}">{{ campo.label }}</label>
+                                <input class="input__input" id="{{ campo.name }}" name="{{ campo.name }}" 
+                                type="{{ campo.field.widget.input_type }}" placeholder="{{ campo.label }}" 
+                                value="{{ campo.value | default:''}}">
+                            </div>
+                        {% endfor %}
+                        
+                        <div class="form__input" style="margin-top: 2em;">
+                            <div class="input__checkbox">
+                                {% if suscriber == 'Si' %}
+                                    <input type="checkbox" class="form-check-input" id="suscriber" name="suscriber" checked>
+                                {% elif suscriber == 'No' %}
+                                    <input type="checkbox" class="form-check-input" id="suscriber" name="suscriber">
+                                {% endif %}
+                                <label class="input__label" for="suscriber">Con subscripci&oacute;n</label>
+    
+                            </div>
+                            <small id="input__help--member" class="input__small">
+                                Deseo subscribirme con un aporte de $3.000 mensuales
+                                y obtener un 5% de descuento en mis compras
+                            </small>
+                        </div>
+
+                        <div class="form__input" style="flex-direction: row; margin: 2em 0;">
+                            {% if staff == True %}
+                                <div class="form__input--radial">
+                                    <input type="checkbox" class="form-check-input" id="staffRole" name="staffRole" checked>  
+                                    <label class="input__label--radio" for="usertype">Administrador</label>
+                                </div>
+                            {% elif staff ==  False %}
+                            <input type="checkbox" class="form-check-input" id="staffRole" name="staffRole">  
+                                <label class="input__label--radio" for="usertype">Administrador</label>
+                            {% endif %}
+                        </div>
+
+                        <div class="form__input">
+                            <label for="input__input--password" class="input__label">Contrase&nacute;a</label>
+                            <input type="password" id="input__input--password" name="input__input--password" placeholder="Contraseña" class="input__input" required readonly>
+                            <button class="form__btn" id="generate-pass">Generar Contrase&nacute;a</button>
+                        </div>
+
+                    <div class="form__btns">
+                        <button class="form__btn" type="submit">Guardar</button>
+                        <a class="form__btn" style="background-color: #F53D3D; text-decoration: none;" 
+                        href="{% url 'eliminar_usuario' uId %}" >Eliminar</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Carro de compras {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/shopping-cart.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="shopping-cart">
+        {% if cantProductos <= 0 %}
+            <h2 style="font-size: 2rem; font-style: italic; color: #00BFA6;"> No Hay productos en tu carro aún :(</h2>
+        {% else %}
+            <div class="cart">
+                <div class="cart__list">
+                    {% for producto in carro %}
+                        <div class="list__item">
+                            <img src="{{ producto.imagen }}" alt="product" class="item__img">
+                            <div class="item__description">
+                                <p class="description__title">{{ producto.categoria }}</p>
+                                <p class="description__description">{{ producto.nombreProducto }}</p>
+                            </div>
+
+                            <strong class="item__price" style="text-decoration: line-through;">${{ producto.precio }}</strong>
+
+                            <p class="item__price" style="color: #00BFA6; font-weight: 700;">${{ producto.precioReajustado }}</p>
+
+                            <a href="{% url 'eliminar_carro' producto.idCarro %}" class="item__btn" style="text-decoration: none;">Quitar</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="cart__summary">
+                    <div class="summary__item">
+                        <h2 class="summary__title">Resumen</h2>
+                    </div>
+
+                    <div class="summary__item">
+                        <div class="summary__count">
+                            <p>{{ cantProductos }} Producto(s)</p>
+                        </div>
+                        <em>Subscriptor: {{ subscriptor }}</em>
+                        <em style="color: #00BFA6; font-weight: 700;">Descuentos: ${{ descuentos }}</em>
+                    </div>
+
+                    <div class="summary__item">
+                        <em>Subtotal ${{ subTotal }}</em>
+                        <strong>Total ${{ total }}</strong>
+                        <a href="{% url 'comprar' %}" class="summary__btn" style="text-decoration: none;">Ir a Pagar</a>
+                    </div>
+
+                </div>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}
+  

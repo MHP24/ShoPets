@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %} {% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.css">
+        <link rel="stylesheet" href="{% static '/core/css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static '/core/css/index.css' %}">
+        {% block styles %} {% endblock %}
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+            {% if not user.is_staff %}
+                <a id="nav__cart--f" href="{% url 'carrito' %}">
+                    <img src="{% static '/core/imgs/icons/cart.svg' %}" alt="cart-icon" id="nav__cart__icon">
+                </a>
+            {% endif %}
+        {% endif %}
+    
+        <main class="main">
+            <section class="navigation">
+                <div id="menu">
+                    <img id="menu__icon" src="{% static '/core/imgs/icons/menu-icon.svg' %}" alt="menu-icon">
+                </div>
+    
+                <nav class="nav">
+                    <a class="navigation__logo nav__item nav__profile" href="{% url 'inicio' %}">
+                        ShoPets
+                    </a>
+    
+                    <ul class="navigation__indexs">
+                        <li class="nav__item">
+                            <a class="nav__link" href="{% url 'inicio' %}">Inicio</a>
+                        </li>
+    
+                        <li class="nav__item">
+                            <a class="nav__link" href="{% url 'catalogo' %}">Cat&aacute;logo</a>
+                        </li class="nav__item">
+
+                        <li class="nav__item">
+                            <a class="nav__link" href="{% url 'nosotros' %}">Nosotros</a>
+                        </li>
+
+                        {% if not user.is_authenticated %}
+                            <li class="nav__msc">
+                                <a class="nav__btn" href="{% url 'iniciar_sesion' %}">Acceder</a>
+                                <a class="nav__btn" href="{% url 'registrarse' %}">Unirse</a>
+                            </li>
+                        {% endif %}
+                            
+                        {%if user.is_staff %}
+                            <a class="nav__btn" href="{% url 'administrar_productos' %}" 
+                            style="max-width: 90%; margin: auto;">Administrar</a>
+                        {% endif %}
+
+                        {% if user.is_authenticated %}
+                            <a class="nav__btn" href="{% url 'perfil' %}" style="max-width: 90%; margin: auto;">{{ user.first_name }}</a>
+                            <a class="nav__btn" href="{% url 'cerrar_sesion' %}" style="max-width: 90%; margin: auto;">Cerrar Sesi&oacute;n</a>
+                            {% if not user.is_staff %}
+                                <a id="nav__cart" href="{% url 'carrito' %}" style="display: grid; place-items: center;">
+                                    <img src="{% static '/core/imgs/icons/cart.svg' %}" alt="cart-icon" id="nav__cart__icon">
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </nav>
+    
+            </section>
+            {% block content %} {% endblock %}
+
+        </main>
+    
+        <footer class="footer">
+            <div class="footer__container">
+                <figure class="footer__logo">
+                    <p class="footer__isotype">Chao Mundo</p>
+                </figure>
+            </div>
+        </footer>
+    
+        <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"
+            integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="{% static '/core/js/navigation.js' %}"></script>
+        <script src="{% static '/core/js/homeSlider.js' %}"></script>
+        <script src="{% static '/core/js/productSlider.js' %}"></script>
+        <script src="{% static '/core/js/forms/contact.js' %}"></script>
+        <script src="{% static '/core/js/forms/login.js' %}"></script>
+        <script src="{% static '/core/js/forms/register.js' %}"></script>
+        <script src="{% static '/core/js/promotional.js' %}"></script>
+    </body>
+</html>
+    

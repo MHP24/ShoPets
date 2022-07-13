@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Nosotros {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/about-us.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="about">
+        <div class="about__container">
+            <div class="about__description">
+                <h2 class="about__title">¿Qui&eacute;nes Somos?</h2>
+                <p class="about__epigraph">Mundo Mascota es la tienda online más completa para mascotas creada por pet lovers para pet lovers! Somos la tienda en línea de mascotas con mayor variedad de productos y servicios a domicilio, contamos con más de 4.000 productos (alimentos,dietas,naturales,snacks,medicinas,higiene y accesorios)  
+                    Nuestro emprendimiento es sin fines de lucro, y estamos dedicados a la manutencion de animales en peligro de maltrato. 
+                    Siempre estamos preocupados por la salud y bienestar de tus mascotas y las que cuidamos en nuestra fundación. 
+                    Tanto tu mascota como las que acogemos son lo más importante para nosotros. Nos esforzamos dia a dia por dar la mejor experiencia y servicio a los pet lovers y para que a tus peluditos no les falte nada para su cuidado y salud.
+                    En Chile, llegamos a todo Santiago y próximamente estaremos con cobertura nacional. Tenemos entregas el mismo dia en 3 rutas diferentes para que elijas la que más te conviene, si pides antes de las 5pm te llega el mismo día. También tenemos envíos nacionales con tiempos de entrega de 3 días hábiles.Contamos con todos los métodos de pago: efectivo, data-fono, pagos online y lo más importante con muy buenos precios.
+                    Mundo Mascota es para todos! En nuestra tienda encontrarás productos desde la opción más economica a la super premium. Todo un universo de soluciones para para tu mascota.
+                    Desde Mundo Mascota apoyamos y colaboramos orgánicamente y de forma activa con el rescate y adopción animal, es por esto que donamos la mayor parte de nuestra ventas mensualmente a esta causa. para nosotros es primordial la integridad y bienestar de las mascotas, y por esto te invitamos a suscribirte con una cuota mensual de $3.000 y con ello obtener un 5% de descuento en todas tus compras.
+                    Te deseamos la mejor experiencia en nuestra tienda.
+                </p>
+            </div>
+
+            <img src="{% static '/core/imgs/msc/about-us.svg' %}" alt="" class="about__img">
+        </div>
+    </section>
+
+    <section class="policy">
+        <h2 class="policy__title">Nuestra Pol&iacute;tica</h2>
+        <div class="policy__container">
+            <div class="policy__item">
+                <img class="policy__img" src="{% static '/core/imgs/icons/location.svg' %}" alt="location">
+                <p class="policy__paragraph">De donde somos</p>
+            </div>
+
+            <div class="policy__item">
+                <img class="policy__img" src="{% static '/core/imgs/icons/package.svg' %}" alt="package">
+                <p class="policy__paragraph">Info. de despacho</p>
+            </div>
+
+            <div class="policy__item">
+                <img class="policy__img" src="{% static '/core/imgs/icons/satisfaction.svg' %}" alt="satisfaction">
+                <p class="policy__paragraph">Danos tu opinión</p>
+            </div>
+
+            <div class="policy__item">
+                <img class="policy__img" src="{% static '/core/imgs/icons/support.svg' %}" alt="support">
+                <p class="policy__paragraph">Comuniquémonos</p>
+            </div>
+
+            <div class="policy__item">
+                <img class="policy__img" src="{% static '/core/imgs/icons/timer.svg' %}" alt="timer">
+                <p class="policy__paragraph">Horarios de atención</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

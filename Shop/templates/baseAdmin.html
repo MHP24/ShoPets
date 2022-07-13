@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %} {% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/core/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static '/core/css/dashboard.css' %}">
+    {% block styles %} {% endblock %}
+</head>
+<body>
+    <header class="dashboard-navigation">
+        <h2 class="title">ShoPets</h2>
+        <hr>
+       <nav class="nav">
+            <a class="nav__item" href="{% url 'inicio' %}">
+                <img class="nav__img" src="{% static '/core/imgs/icons/home.svg' %}" alt="Home">
+                <p class="nav__name">Inicio</p>
+            </a>
+
+            <a class="nav__item" href="{% url 'administrar_productos' %}">
+                <img class="nav__img" src="{% static '/core/imgs/icons/package.svg' %}" alt="Products">
+                <p class="nav__name">Productos</p>
+            </a>
+
+            <a class="nav__item" href="{% url 'administrar_stock' %}">
+                <img class="nav__img" src="{% static '/core/imgs/icons/stock.svg' %}" alt="Stock">
+                <p class="nav__name">Stock</p>
+            </a> 
+            
+            <a class="nav__item" href="{% url 'administrar_usuarios' %}">
+                <img class="nav__img" src="{% static '/core/imgs/icons/user.svg' %}" alt="Users">
+                <p class="nav__name">Usuarios</p>
+            </a>
+
+            <a class="nav__item" href="{% url 'administrar_historial' %}">
+                <img class="nav__img" src="{% static '/core/imgs/icons/history.svg' %}" alt="History">
+                <p class="nav__name">Historial</p>
+            </a>
+
+            <a class="nav__item" href="{% url 'cerrar_sesion' %}">
+                <img class="nav__img" src="{% static '/core/imgs/icons/logout.svg' %}" alt="Logout">
+                <p class="nav__name">Cerrar Ses&oacute;n</p>
+            </a>
+        </nav>
+    </header>
+    <main >
+        <section class="panel">
+            <section class="searcher">
+                <img id="searcher__burger" src="{% static '/core/imgs/icons/menu-dashboard.svg' %}" alt="">
+                <div class="searcher__item searcher__item--search">
+                    <input class="searcher__input" name="search" id="search" type="text" placeholder="Buscar">
+                    <button class="searcher__btn"><img class="searcher__btn-img"src="{% static '/core/imgs/icons/search.svg' %}" alt="S"></button>
+                </div>
+
+                <div class="searcher__item searcher__item--actions">
+                    <div class="searcher__item searcher__item--options">
+                        <em class="searcher__user">Administrador</em>
+                    </div>
+    
+                    <div class="searcher__item searcher__item--profile">
+                        <p class="searcher__user">{{user.get_full_name}}</p>
+                    </div>
+                </div>
+            </section>
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static '/core/js/dashboardNavigation.js' %}"></script>
+    {% comment %} <script src="{% static '/core/js/forms/product-handler.js' %}"></script> {% endcomment %}
+    <script src="{% static '/core/js/forms/users-handler.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Perfil {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="profile">
+        <div class="profile__container">
+            <div class="profile__user">
+                <div class="user__card">
+                    <div class="card__header">
+                        <img src="{{perfil.urlImagenUsuario}}" alt="" class="card__img">
+                        <p class="card__name">{{ user.first_name }} {{ user.last_name }}</p>
+                        <p class="card__email">{{ user.email }}</p>
+                    </div>
+                    <div class="option">
+                        <div class="option__title">
+                            <a style="text-decoration: none; color: #53545C;" href="{% url 'editar_perfil' %}">Editar Perfil</a>
+                        </div>
+                    </div>
+                    <div class="option">
+                        <div class="option__title option__logout">
+                            <a style="text-decoration: none; color: #00BFA6; font-weight: 500;" href="{% url 'cerrar_sesion' %}">Cerrar Sesi&oacute;n</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile__actions">
+                <div class="action">
+                    <h2 class="action__title">Tus Datos</h2>
+                    <div class="content">
+                        <div class="content__info">
+                            <p class="content__title">Nombre</p>
+                            <p class="content__data">{{ user.first_name }} {{ user.last_name }}</p>
+                        </div>
+
+                        <div class="content__info">
+                            <p class="content__title">Email</p>
+                            <p class="content__data">{{ user.email }}</p>
+                        </div>
+
+                        <div class="content__info">
+                            <p class="content__title">Direcci&oacute;n</p>
+                            <p class="content__data">{{ perfil.direccion }}</p>
+                        </div>
+
+                        <div class="content__info">
+                            <p class="content__title">Tipo De Usuario</p>
+                            <p class="content__data">{{ tipoUsuario }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action">
+                    <h2 class="action__title">Compras Recientes</h2>
+                    <div class="orders">
+                        {% for factura in facturas %}
+                            <a class="order" href="{% url 'compra' factura.nroFactura %}" style="flex-direction: column; padding: 2em 0; gap: 1em;">
+                                <p class="order__title" 
+                                style="text-transform: capitalize;
+                                font-style: italic; color: #53545C;">Compra Nro{{ factura.nroFactura }} - {{ factura.estadoActual }}</p>
+                                <div class="order__details">
+                                    <p class="order__title">{{ factura.fecha }}</p>
+                                    <p class="order__price">${{ factura.montoTotal }}</p>
+                                    <p class="order__delivery">{{ factura.idProd.nomProducto }}</p>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

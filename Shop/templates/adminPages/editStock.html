@@ -1,0 +1,66 @@
+{% extends "baseAdmin.html" %}
+{% load static %}
+{% block title %} Men&uacute; De Edici&oacute;n {% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-input-handler.css' %}">
+    {% comment %} <link rel="stylesheet" href="{% static '/core/css/dashboard-table-layout.css' %}"> {% endcomment %}
+{% endblock %}
+
+{% block content %}         
+    <div class="summary">
+            <div class="summary__item summary__item--t">
+                <h2 class="summary__title">Editar Stock</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="form">
+        <h3 class="form__title">Actualizar stock de {{ producto.nomProducto }}</h3>
+        <form class="form__product" action="" method="post" id="stock-handler">
+            {% csrf_token %}
+            <div class="form__inputs">
+                <div class="input-group-a">
+                    <div class="form__input">
+                        <label class="input__label" for="input__input--id">ID</label>
+                        <input class="input__input" id="input__input--id" name="input__input--id" 
+                        type="text" placeholder="Ingresar ID" 
+                        value="{{ producto.idProducto }}" disabled>
+                    </div>
+
+                    <div class="form__input">
+                        <label class="input__label" for="input__input--name">Nombre</label>
+                        <input class="input__input" id="input__input--name" name="input__input--name" 
+                        type="text" placeholder="Nombre" 
+                        value="{{ producto.nomProducto }}" disabled>
+                    </div>
+
+                    <div class="form__input">
+                        <label class="input__label" for="input__input--count">Cantidad</label>
+                        <input class="input__input" id="input__input--count" name="input__input--count" 
+                        type="number" value="{{ producto.stock }}" 
+                        min="0"
+                        placeholder="Cantidad" required>
+                    </div>
+                </div>
+
+                <div class="input-group-b">
+                    <div class="form__input">
+                        <img src="{{ producto.urlImagenProducto }}" alt="{{ producto.nomProducto }}" class="input__img">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form__btns">
+                <button type="submit" class="form__btn">Guardar</button>
+                <a href="{% url 'administrar_stock' %}" style="text-decoration: none;" class="form__btn">Cancelar</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static '/core/js/forms/stock-handler.js' %}"></script>
+{% endblock %}

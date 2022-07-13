@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Editar Perfil {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/users-accounts.css' %}">
+{% endblock %}
+    	
+{% block content %}
+    <section class="account">
+        <img src="{% static 'core/imgs/msc/edit-profile-picture.jpg' %}" class="img__account" alt="">
+        <div class="form">
+            <h3 class="form__title">Edita Tus Datos</h3>
+            <form class="form__product" action="" method="POST" id="edit-profile" style="margin-top: 2em;">
+                <div class="form__inputs">
+
+                    {% csrf_token %} 
+                    {% for campo in formPerfil %}
+                        <div class="form__input">
+                            <label class="input__label" for="{{ campo.name }}">{{ campo.label }}</label>
+                            <input class="input__input" id="{{ campo.name }}" name="{{ campo.name }}" 
+                            type="{{ campo.field.widget.input_type }}" placeholder="{{ campo.label }}" 
+                            value="{{ campo.value | default:''}}">
+                        </div>
+                    {% endfor %}
+                    
+                    {% for campo in formUser %}
+                        <div class="form__input">
+                            <label class="input__label" for="{{ campo.name }}">{{ campo.label }}</label>
+                            <input class="input__input" id="{{ campo.name }}" name="{{ campo.name }}" 
+                            type="{{ campo.field.widget.input_type }}" placeholder="{{ campo.label }}" 
+                            value="{{ campo.value | default:''}}">
+                        </div>
+                    {% endfor %}
+                    
+                    <div class="form__input" style="margin-top: 2em;">
+                        <div class="input__checkbox">
+                            {% if suscriber == 'Si' %}
+                                <input type="checkbox" class="form-check-input" id="suscriber" name="suscriber" checked>
+                            {% elif suscriber == 'No' %}
+                                <input type="checkbox" class="form-check-input" id="suscriber" name="suscriber">
+                            {% endif %}
+                            <label class="input__label" for="suscriber">Con subscripci&oacute;n</label>
+
+                        </div>
+                        <small id="input__help--member" class="input__small">
+                            Deseo subscribirme con un aporte de $3.000 mensuales
+                            y obtener un 5% de descuento en mis compras
+                        </small>
+                    </div>
+                <div class="form__btns">
+                    <button class="form__btn" type="submit">Guardar</button>
+                </div>
+            </form>
+        </div>  
+    </section>
+
+{% endblock %}

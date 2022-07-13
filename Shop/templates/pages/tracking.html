@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Factura {{nFactura}} {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-table-layout.css' %}">
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-bills-details.css' %}">
+    <link rel="stylesheet" href="{% static '/core/css/shopping-tracking.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="shop-details">
+    <div class="details">
+        <div class="details__container">
+            <div class="detail__item">
+                <h2 class="detail__title">ShoPets</h2>
+            </div>
+
+            <div class="detail__item">
+                <div class="detail__subitem">
+                    <div class="detail__idem">
+                        <p>Facturar A: <span class="detail">{{rut}}</span></p>
+                        
+                        <p>Nombre: <span class="detail">{{nombre}}</span></p>
+                    </div>
+
+                </div>
+
+                <div class="detail__subitem">
+                        <p>N Factura: <span class="detail">{{nFactura}}</span></p>
+                        <p>Fecha: <span class="detail">{{ fecha }}</span></p>
+                </div>
+            </div>
+
+            <div class="detail__products">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Categor&iacute;a</th>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>%Desc. Subscriptor</th>
+                            <th>%Desc. Oferta</th>
+                            <th>Precio Final</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in factura %}
+                            <tr class="tr--g">
+                                <th>{{ producto.idProducto.idProducto }}</th>
+                                <th>{{ producto.idProducto.nomCategoria }}</th>
+                                <th>{{ producto.idProducto.nomProducto }}</th>
+                                <th>${{ producto.subTotal }}</th>
+                                <th>{{ producto.porcDesctoSubscriptor }}%</th>
+                                <th>{{ producto.porDesctoOferta }}%</th>
+                                <th>${{ producto.total }}</th>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <div class="summary-bill">
+                    <p class="detail--important">Total</p>
+                    <p class="detail--price">${{ total }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="tracking">
+        <div class="tracking__container">
+            <h2 class="summary__title">Detalles Facturaci&oacute;n Nro {{nFactura}}</h2>
+            {%if etapa == 'En Bodega'%}
+                <div class="stages">
+                    <div class="stage stage--dot">1</div>
+                    <div class="stage stage--line stage--uncompleted"></div>
+                    <div class="stage stage--dot stage--uncompleted">2</div>
+                    <div class="stage stage--line stage--uncompleted"></div>
+                    <div class="stage stage--dot stage--uncompleted">3</div>
+                </div>
+            {% elif etapa == 'Despachado' %}
+                <div class="stages">
+                    <div class="stage stage--dot">1</div>
+                    <div class="stage stage--line"></div>
+                    <div class="stage stage--dot">2</div>
+                    <div class="stage stage--line stage--uncompleted"></div>
+                    <div class="stage stage--dot stage--uncompleted">3</div>
+                </div>
+            {% elif etapa == 'Entregado' %}
+                <div class="stages">
+                    <div class="stage stage--dot">1</div>
+                    <div class="stage stage--line"></div>
+                    <div class="stage stage--dot">2</div>
+                    <div class="stage stage--line"></div>
+                    <div class="stage stage--dot">3</div>
+                </div>
+            {% endif %}
+            <p class="tracking__subtitle">Etapa actual <span class="tracking__descr">{{etapa}}</span></p>
+        </div>
+    </div>
+</section>
+{% endblock %}

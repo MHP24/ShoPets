@@ -1,0 +1,38 @@
+{% extends "baseAdmin.html" %}
+{% load static %}
+{% block title %} Agregar Producto {% endblock %}
+
+{% block styles %} 
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-input-handler.css' %}">
+    <link rel="stylesheet" href="{% static '/core/css/dashboard-table-layout.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="summary">
+        <div class="summary__item summary__item--t">
+            <h2 class="summary__title">Mantenedor De Productos</h2>
+        </div>
+    </div>
+    <div class="form">
+        <h3 class="form__title">Agregar nuevo producto</h3>
+        <form  style="margin-top: 2em;" class="form__product" action="" method="POST" id="product-handler">
+            {% csrf_token %} 
+            {% for campo in form %}
+                <div class="form__input">
+                    <label class="input__label" for="{{ campo.name }}">{{ campo.label }}</label>
+                    <input class="input__input" id="{{ campo.name }}" name="{{ campo.name }}" type="{{ campo.field.widget.input_type }}" placeholder="{{ campo.label }}" required>
+                </div>
+            {% endfor %}
+            <div class="form__input">
+                <label class="input__label" for="input__input--category">Categor&iacute;a</label>
+                <select name="category" id="category" class="input__select">
+                    <option value="Perros" class="input__select__option">Perros</option>
+                    <option value="Gatos" class="input__select__option">Gatos</option>
+                </select>
+            </div>
+            <div class="form__btns">
+                <button class="form__btn" type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
